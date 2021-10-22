@@ -38,7 +38,7 @@ namespace Newsletterme.Features.Newsletters
             ApplicationDbContext context
         )
         {
-            var alreadySubscribeNewsletter = await context.UserSignedInNewsletters
+            var alreadySubscribeNewsletter = await context.UserSubscribeNewsletters
                 .Where(q => q.NewsletterId == command.NewsletterId &&
                     q.Email == command.Email)
                 .AnyAsync();
@@ -48,13 +48,14 @@ namespace Newsletterme.Features.Newsletters
                 return new(true);
             }
 
-            var userSignedInNewsletter = new UserSignedInNewsletter(
+            var userSignedInNewsletter = new UserSubscribeNewsletter(
+                Guid.Empty,
                 command.NewsletterId,
                 command.Email,
                 command.Name
             );
 
-            context.UserSignedInNewsletters
+            context.UserSubscribeNewsletters
                 .Add(userSignedInNewsletter);
 
             await context.SaveChangesAsync();

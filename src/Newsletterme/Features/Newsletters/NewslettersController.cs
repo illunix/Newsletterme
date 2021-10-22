@@ -15,6 +15,14 @@ namespace Newsletterme.Features.Newsletters
 
         [HttpPost]
         public async Task<IActionResult> Join([FromBody] Join.Command command)
-            => Ok(await _mediator.Send(command));
+        {
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.AlreadySubscribeNewsletter)
+            {
+                return BadRequest("This email already subscribe this newsletter.");
+            }
+
+            return Ok();
+        }
     }
 }

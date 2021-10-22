@@ -3,7 +3,7 @@ using System;
 
 namespace Newsletterme.Features.Newsletters.Models
 {
-    public record UserSignedInNewsletter(
+    public record UserSubscribeNewsletter(
         Guid UserId,
         Guid NewsletterId,
         string Email,
