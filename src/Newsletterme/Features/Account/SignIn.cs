@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Newsletterme.Areas.Panel.Account.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,8 +9,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using GenerateMediator;
+using Newsletterme.Features.Account.Models;
 
-namespace Newsletterme.Areas.Account
+namespace Newsletterme.Features.Account
 {
     [GenerateMediator]
     public static partial class SignIn

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Newsletterme.Features.Newsletters
 {
     [GenerateMediator]
-    public static partial class Join
+    public static partial class Subscribe
     {
         public sealed partial record Command(
             Guid NewsletterId,

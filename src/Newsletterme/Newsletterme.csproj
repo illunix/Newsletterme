@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\app.ts" />
+    <None Remove="ClientApp\src\pages\home\header\header.ts" />
+    <None Remove="ClientApp\src\pages\home\home.ts" />
+    <None Remove="ClientApp\src\pages\sign-in\sign-in.ts" />
+    <None Remove="ClientApp\src\router.ts" />
+    <None Remove="ClientApp\src\services\user.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoDependencyInjection" Version="1.0.2" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
@@ -22,6 +31,22 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
     <PackageReference Include="OdeToCode.AddFeatureFolders" Version="2.0.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="VueCliMiddleware" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\app.ts" />
+    <TypeScriptCompile Include="ClientApp\src\pages\home\header\header.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\pages\home\home.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\pages\sign-in\sign-in.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\router.ts" />
+    <TypeScriptCompile Include="ClientApp\src\services\user.ts" />
   </ItemGroup>
 
 </Project>

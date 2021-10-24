@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newsletterme.Areas.Panel.Account.Models;
+using Newsletterme.Features.Account.Models;
 using Newsletterme.Infrastructure.Behaviors;
 using Newsletterme.Infrastructure.Data;
 using Newsletterme.Infrastructure.Filters;
@@ -18,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VueCliMiddleware;
 
 namespace Newsletterme
 {
@@ -27,6 +29,8 @@ namespace Newsletterme
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSpaStaticFiles(opt => opt.RootPath = "ClientApp/dist");
+
             services.AddControllers(options =>
             {
                 options.Filters
@@ -46,7 +50,6 @@ namespace Newsletterme
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
             })
-                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services
@@ -57,7 +60,10 @@ namespace Newsletterme
                 );
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env
+        )
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +71,8 @@ namespace Newsletterme
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -74,6 +82,14 @@ namespace Newsletterme
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapToVueCliProxy(
+                    "{*path}",
+                    new SpaOptions { SourcePath = "ClientApp" },
+                    npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    regex: "Compiled successfully",
+                    forceKill: true
+                );
             });
         }
     }

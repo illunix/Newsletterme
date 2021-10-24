@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Newsletterme.Areas.Panel.Account.Models
+namespace Newsletterme.Features.Account.Models
 {
     public class ApplicationUser : IdentityUser
     {

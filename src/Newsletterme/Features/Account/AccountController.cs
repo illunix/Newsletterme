@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newsletterme.Areas.Panel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Newsletterme.Areas.Account
+namespace Newsletterme.Features.Account
 {
-    [Route("api/[area]/[action]")]
-    public partial class AccountController : BaseController
+    [Route("api/[controller]/[action]")]
+    public partial class AccountController : Controller
     {
         private readonly IMediator _mediator;
 
