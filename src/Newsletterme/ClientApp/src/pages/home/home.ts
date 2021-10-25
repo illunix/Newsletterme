@@ -19,14 +19,14 @@ import { email, required } from '@vuelidate/validators';
     }
 })
 export default class Home extends Vue {
+    public v$ = useVuelidate();
     public email: string = '';
     public password: string = '';
     public signUpSubmitted: boolean = false;
 
-    v$ = useVuelidate();
-
     public async signUp(): Promise<void> {
         this.signUpSubmitted = true;
+        console.log(this.v$);
         // signUp(this.email, this.password);
     }
 }
