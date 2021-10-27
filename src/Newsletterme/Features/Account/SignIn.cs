@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newsletterme.Features.Account.Models;
+using GenerateMediator;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using GenerateMediator;
-using Newsletterme.Features.Account.Models;
 
 namespace Newsletterme.Features.Account
 {
@@ -17,14 +17,14 @@ namespace Newsletterme.Features.Account
     public static partial class SignIn
     {
         public sealed partial record Command(
-            string Email,
+            string EmailOrUsername,
             string Password
         )
         {
             public static void AddValidation(AbstractValidator<Command> v)
             {
-                v.RuleFor(x => x.Email)
-                    .NotEmpty().WithMessage("Please enter email.");
+                v.RuleFor(x => x.EmailOrUsername)
+                    .NotEmpty().WithMessage("Please enter email or username.");
 
                 v.RuleFor(x => x.Password)
                     .NotEmpty().WithMessage("Please enter password.");
@@ -42,7 +42,11 @@ namespace Newsletterme.Features.Account
             IConfiguration configuration
         )
         {
-            var user = await userManager.FindByEmailAsync(command.Email);
+            var user = await userManager.FindByEmailAsync(command.EmailOrUsername);
+            if (user is null)
+            {
+                user = await userManager.FindByNameAsync(command.EmailOrUsername);
+            }
 
             var validCredentials = await userManager.CheckPasswordAsync(
                 user,
@@ -64,12 +68,6 @@ namespace Newsletterme.Features.Account
                     Guid.NewGuid().ToString()
                 )
             };
-
-            var userRoles = await userManager.GetRolesAsync(user);
-            foreach (var role in userRoles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("jwt:secret")));
             var creds = new SigningCredentials(

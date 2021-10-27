@@ -1,9 +1,20 @@
-import { createApp } from 'vue';
-import App from './app/app.vue';
-import router from './router';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import 'bootstrap/dist/css/bootstrap.css';
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-createApp(App).use(router)
-    .use(router)
-    .mount('#app');
+export function getBaseUrl() {
+  return document.getElementsByTagName('base')[0].href;
+}
+
+const providers = [
+  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+];
+
+if (environment.production) {
+  enableProdMode();
+}
+
+platformBrowserDynamic(providers).bootstrapModule(AppModule)
+  .catch(err => console.error(err));

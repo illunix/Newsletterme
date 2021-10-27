@@ -3,23 +3,15 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Newsletterme.Features.Account.Models;
 using Newsletterme.Infrastructure.Behaviors;
 using Newsletterme.Infrastructure.Data;
 using Newsletterme.Infrastructure.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using VueCliMiddleware;
 
 namespace Newsletterme
 {
@@ -29,17 +21,20 @@ namespace Newsletterme
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSpaStaticFiles(opt => opt.RootPath = "ClientApp/dist");
-
-            services.AddControllers(options =>
+            services.AddControllersWithViews(options =>
             {
                 options.Filters
                     .Add(typeof(ValidatorActionFilter));
             })
                 .AddFeatureFolders()
-                .AddAreaFeatureFolders()
                 .AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssembly(typeof(Program).Assembly));
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration["ef:connectionString"]));
 
@@ -55,7 +50,7 @@ namespace Newsletterme
             services
                 .AddMediatR(typeof(Startup))
                 .AddTransient(
-                    typeof(IPipelineBehavior<,>), 
+                    typeof(IPipelineBehavior<,>),
                     typeof(LoggingBehavior<,>)
                 );
         }
@@ -69,10 +64,18 @@ namespace Newsletterme
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
-
-            app.UseSpaStaticFiles();
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
 
@@ -81,15 +84,19 @@ namespace Newsletterme
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
 
-                endpoints.MapToVueCliProxy(
-                    "{*path}",
-                    new SpaOptions { SourcePath = "ClientApp" },
-                    npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    regex: "Compiled successfully",
-                    forceKill: true
-                );
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

@@ -1,0 +1,38 @@
+<app-nav-menu></app-nav-menu>
+<main>
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 mb-3">Create your own newsletter!</h1>
+        <p class="col-lg-10 fs-4">With this website you can create your own newsletter page where user can subscribe it and receive it by mail.</p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+          <div class="form-floating mb-3">
+            <input class="form-control" id="floatingUsername" placeholder="Username" formControlName="username"> 
+            <label for="floatingUsername">Username</label>
+            <div class="text-danger" id="floatingInput" *ngIf="submitted && f.username.errors?.required">Username is required.</div>
+            <div class="text-danger" id="floatingInput" *ngIf="submitted && f.username.errors?.pattern">Username cannot contain special characters.</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+            <label for="floatingInput">Email address</label>
+            <div class="text-danger" id="floatingInput" *ngIf="submitted && f.email.errors?.required">Email is required.</div>
+            <div class="text-danger" id="floatingInput" *ngIf="submitted && f.email.errors?.email">Email is invalid.</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="new-password">
+            <label for="floatingPassword">Password</label>
+            <div class="text-danger" id="floatingInput" *ngIf="submitted && f.password.errors?.required">Password is required.</div>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

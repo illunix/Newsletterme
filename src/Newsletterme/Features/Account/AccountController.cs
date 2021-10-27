@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Newsletterme.Features.Account
 {
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     public partial class AccountController : Controller
     {
         private readonly IMediator _mediator;
@@ -17,10 +17,13 @@ namespace Newsletterme.Features.Account
             var commandResult = await _mediator.Send(command);
             if (!commandResult.ValidCredentials)
             {
-                return Unauthorized("Some of your information is incorrect. Try again.");
+                return Unauthorized();
             }
 
-            return Ok(commandResult.AccessToken);
+            return Ok(new
+            {
+                accessToken = commandResult.AccessToken
+            });
         }
 
         [HttpPost]

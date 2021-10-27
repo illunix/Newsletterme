@@ -1,0 +1,26 @@
+<main class="form-signin">
+  <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <div class="alert alert-danger" role="alert" *ngIf="submitted && !signedIn">
+      Some of your information is incorrect. Try again.
+    </div>
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="Email or Username" formControlName="emailOrUsername">
+      <label for="floatingInput">Email or Username</label>
+      <div class="text-danger" id="floatingInput" *ngIf="submitted && f.emailOrUsername.errors?.required">Email or username is required.</div>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+      <label for="floatingPassword">Password</label>
+      <div class="text-danger" id="floatingInput" *ngIf="submitted && f.password.errors?.required">Password is required.</div>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <a class="link-primary" [routerLink]="['/']">Don't have account?</a>
+  </form>
+</main>
