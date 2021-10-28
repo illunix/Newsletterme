@@ -22,7 +22,8 @@ namespace Newsletterme.Features.Account
 
             return Ok(new
             {
-                accessToken = commandResult.AccessToken
+                accessToken = commandResult.AccessToken,
+                expiresAt = commandResult.ExpiresAt
             });
         }
 

@@ -18,7 +18,8 @@ namespace Newsletterme.Features.Account
     {
         public sealed partial record Command(
             string EmailOrUsername,
-            string Password
+            string Password,
+            bool RememberMe
         )
         {
             public static void AddValidation(AbstractValidator<Command> v)
@@ -33,6 +34,7 @@ namespace Newsletterme.Features.Account
 
         public sealed record CommandResult(
             string AccessToken,
+            long ExpiresAt,
             bool ValidCredentials = true
         );
 
@@ -54,7 +56,7 @@ namespace Newsletterme.Features.Account
             );
             if (!validCredentials)
             {
-                return new(string.Empty, false);
+                return new(string.Empty, 0, false);
             }
 
             var claims = new List<Claim>
@@ -75,17 +77,22 @@ namespace Newsletterme.Features.Account
                 SecurityAlgorithms.HmacSha256
             );
 
+            var expires = DateTime.UtcNow.AddDays(command.RememberMe ? 7 : 1);
+
             var tokenDescriptor = new JwtSecurityToken(
                 issuer: "",
                 audience: "",
-                expires: DateTime.UtcNow.AddDays(7),
+                expires: expires,
                 claims: claims,
                 signingCredentials: creds
             );
 
             var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
 
-            return new(accessToken);
+            return new(
+                accessToken,
+                new DateTimeOffset(expires).ToUnixTimeSeconds()
+            );
         }
     }
 }

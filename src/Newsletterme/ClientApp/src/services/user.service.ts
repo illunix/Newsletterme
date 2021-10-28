@@ -33,6 +33,7 @@ export class UserService {
 
   signOut() {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('expires_at');
   }
 
   isSignedIn() {

@@ -1,18 +1,18 @@
 <main class="form-signin">
   <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <div class="alert alert-danger" role="alert" *ngIf="submitted && !signedIn">
+    <div class="alert alert-danger" role="alert" *ngIf="isSubmitted && !signedIn">
       Some of your information is incorrect. Try again.
     </div>
     <div class="form-floating">
       <input type="email" class="form-control" id="floatingInput" placeholder="Email or Username" formControlName="emailOrUsername">
       <label for="floatingInput">Email or Username</label>
-      <div class="text-danger" id="floatingInput" *ngIf="submitted && f.emailOrUsername.errors?.required">Email or username is required.</div>
+      <div class="text-danger" id="floatingInput" *ngIf="isSubmitted && f.emailOrUsername.errors?.required">Email or username is required.</div>
     </div>
     <div class="form-floating">
       <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
       <label for="floatingPassword">Password</label>
-      <div class="text-danger" id="floatingInput" *ngIf="submitted && f.password.errors?.required">Password is required.</div>
+      <div class="text-danger" id="floatingInput" *ngIf="isSubmitted && f.password.errors?.required">Password is required.</div>
     </div>
 
     <div class="checkbox mb-3">

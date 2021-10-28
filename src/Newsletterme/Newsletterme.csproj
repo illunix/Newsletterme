@@ -47,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\dashboard\sidebar-menu\sidebar-menu.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\services\user.service.ts" />
   </ItemGroup>
 

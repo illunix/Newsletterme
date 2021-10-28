@@ -11,8 +11,8 @@ import { UserService } from '../../services/user.service';
 })
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
-  submitted = false;
-  signedIn: Observable<boolean>;
+  signedIn: boolean;
+  isSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(): void {
-    this.submitted = true;
+    this.isSubmitted = true;
 
     if (!this.signInForm.valid) {
       return;
@@ -43,11 +43,11 @@ export class SignInComponent implements OnInit {
       password: this.f['password'].value
     };
 
-    console.log(this.signedIn);
-
-    this.signedIn = this.userService.signIn(credentials);
-    if (this.signedIn) {
-      // this.router.navigateByUrl('/dashboard');
-    }
+    this.userService.signIn(credentials).subscribe(isSignedIn => {
+      if (isSignedIn) {
+        this.signedIn = isSignedIn;
+        this.router.navigateByUrl('/dashboard');
+      }
+    });
   }
 }
