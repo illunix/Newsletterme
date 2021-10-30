@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
 })
 export class HomeComponent implements OnInit {
   signUpForm: FormGroup;
-  submitted = false;
+  isSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -19,6 +19,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.userService.isSignedIn()) {
+      this.router.navigateByUrl('/dashboard');
+    }
+
     this.signUpForm = this.fb.group({
       username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]],
       email: ['', [Validators.required, Validators.email]],
@@ -32,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSignUp(): void {
-    this.submitted = true;
+    this.isSubmitted = true;
 
     if (!this.signUpForm.valid) {
       return;
@@ -44,10 +48,10 @@ export class HomeComponent implements OnInit {
       password: this.f['password'].value
     };
 
-    if (this.userService.signUp(credentials)) {
-      if (this.userService.signIn(credentials)) {
-        this.router.navigateByUrl('/dashboard');
+    this.userService.signUp(credentials).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/sign-in');
       }
-    }
+    });
   }
 }

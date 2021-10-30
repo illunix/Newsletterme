@@ -1,7 +1,7 @@
 <main class="form-signin">
   <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <div class="alert alert-danger" role="alert" *ngIf="isSubmitted && !signedIn">
+    <div class="alert alert-danger" role="alert" *ngIf="isSubmitted && !signedIn && !isLoading">
       Some of your information is incorrect. Try again.
     </div>
     <div class="form-floating">

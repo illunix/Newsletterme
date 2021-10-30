@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Newsletterme.Features.Account
 {
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public partial class AccountController : Controller
     {
         private readonly IMediator _mediator;

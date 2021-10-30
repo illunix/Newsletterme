@@ -13,6 +13,7 @@ export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   signedIn: boolean;
   isSubmitted = false;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +34,7 @@ export class SignInComponent implements OnInit {
 
   onSignIn(): void {
     this.isSubmitted = true;
+    this.isLoading = true;
 
     if (!this.signInForm.valid) {
       return;
@@ -43,10 +45,17 @@ export class SignInComponent implements OnInit {
       password: this.f['password'].value
     };
 
-    this.userService.signIn(credentials).subscribe(isSignedIn => {
-      if (isSignedIn) {
-        this.signedIn = isSignedIn;
-        this.router.navigateByUrl('/dashboard');
+    this.userService.signIn(credentials).subscribe({
+      next: (isSignedIn) => {
+        if (isSignedIn) {
+          this.isLoading = false;
+          this.signedIn = true;
+          this.router.navigateByUrl('/dashboard');
+        }
+      },
+      error: () => {
+        this.isLoading = false;
+        this.signedIn = false;
       }
     });
   }
