@@ -4,8 +4,13 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" [routerLink]="['/']" (click)="signOut()">Sign out</a>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownForm" ngbDropdownToggle>Toggle dropdown</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownForm">
+        <button ngbDropdownItem>Settings</button>
+        <div class="dropdown-divider"></div>
+        <button class="btnSignOut" ngbDropdownItem [routerLink]="['/']" (click)="signOut()">Sign out</button>
+      </div>
     </div>
   </div>
 </header>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'sign-in',
@@ -17,14 +17,19 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
   ) { }
 
   ngOnInit() {
+    if (this.userService.isSignedIn()) {
+      this.router.navigateByUrl('/dashboard');
+    }
     this.signInForm = this.fb.group({
       emailOrUsername: ['', [Validators.required]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      rememberMe: false
     });
   }
 
@@ -50,6 +55,16 @@ export class SignInComponent implements OnInit {
         if (isSignedIn) {
           this.isLoading = false;
           this.signedIn = true;
+
+          var returnTo = '';
+          this.route.queryParams
+            .subscribe(params => {
+              returnTo = params.return_to
+            });
+          if (returnTo) {
+            this.router.navigateByUrl(returnTo);
+            return;
+          }
           this.router.navigateByUrl('/dashboard');
         }
       },

@@ -39,9 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\dashboard\nav-menu\nav-menu.component.ts" />
-    <None Remove="ClientApp\src\app\dashboard\side-menu\side-menu.Module.ts" />
-    <None Remove="ClientApp\src\services\user.service.ts" />
+    <None Remove="ClientApp\src\app\app.routing.ts" />
+    <None Remove="ClientApp\src\app\checkout\checkout.module.ts" />
+    <None Remove="ClientApp\src\app\panel\nav-menu\nav-menu.component.ts" />
+    <None Remove="ClientApp\src\app\panel\nav-menu\nav-menu.module.ts" />
+    <None Remove="ClientApp\src\app\panel\side-menu\side-menu.component.ts" />
+    <None Remove="ClientApp\src\app\panel\side-menu\side-menu.module.ts" />
+    <None Remove="ClientApp\src\app\_helpers\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\_services\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,12 +59,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\dashboard\nav-menu\nav-menu.component.ts">
+    <TypeScriptCompile Include="ClientApp\src\app\app.routing.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\checkout\checkout.module.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ClientApp\src\app\dashboard\side-menu\side-menu.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\dashboard\side-menu\side-menu.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\services\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\panel\nav-menu\nav-menu.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\panel\nav-menu\nav-menu.module.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\panel\side-menu\side-menu.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\panel\side-menu\side-menu.module.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_helpers\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\user.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

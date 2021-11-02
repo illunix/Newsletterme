@@ -38,10 +38,6 @@ body {
   border-top-right-radius: 0;
 }
 
-a.link-primary {
-    text-decoration: none;
-}
-
 .alert-danger {
     font-size: 12.5px;
 }

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Home } from 'angular-feather/icons';
+import { Home, Inbox } from 'angular-feather/icons';
 import { FeatherModule } from 'angular-feather';
 
 const icons = {
-  Home
+  Home,
+  Inbox
 }
 
 @NgModule({
@@ -17,4 +18,4 @@ const icons = {
     FeatherModule
   ]
 })
-export class DashboardSideMenuModule { }
+export class PanelSideMenuModule { }

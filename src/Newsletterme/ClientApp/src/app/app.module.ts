@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
+import { RoutingModule } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from "@auth0/angular-jwt";
 import { HttpClientModule } from '@angular/common/http';
@@ -10,9 +10,18 @@ import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardSideMenuComponent } from './dashboard/side-menu/side-menu.component';
-import { DashboardNavMenuComponent } from './dashboard/nav-menu/nav-menu.component';
-import { DashboardSideMenuModule } from './dashboard/side-menu/side-menu.module';
+import { PanelComponent } from './panel/panel.component';
+import { PanelSideMenuComponent } from './panel/side-menu/side-menu.component';
+import { PanelNavMenuComponent } from './panel/nav-menu/nav-menu.component';
+import { PanelSideMenuModule } from './panel/side-menu/side-menu.module';
+import { NewslettersComponent } from './newsletters/newsletters.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddNewsletterComponent } from './newsletters/add/add.component';
+import { AuthGuard } from './_helpers/auth.guard';
+import { PlansComponent } from './plans/plans.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PanelNavMenuModule } from './panel/nav-menu/nav-menu.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +30,12 @@ import { DashboardSideMenuModule } from './dashboard/side-menu/side-menu.module'
     HomeComponent,
     SignInComponent,
     DashboardComponent,
-    DashboardSideMenuComponent,
-    DashboardNavMenuComponent
+    PanelComponent,
+    PanelSideMenuComponent,
+    PanelNavMenuComponent,
+    AddNewsletterComponent,
+    PlansComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +50,11 @@ import { DashboardSideMenuModule } from './dashboard/side-menu/side-menu.module'
       },
     }),
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'sign-in', component: SignInComponent, pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' }
-    ]),
-    DashboardSideMenuModule
+    RoutingModule,
+    NgbModule,
+    PanelSideMenuModule,
+    PanelNavMenuModule,
+    CheckoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

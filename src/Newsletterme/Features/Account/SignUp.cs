@@ -30,9 +30,7 @@ namespace Newsletterme.Features.Account
             }
         }
 
-        public sealed record CommandResult(
-           IdentityResult IdentityResult
-        );
+        public sealed record CommandResult(IdentityResult IdentityResult);
 
         public static async Task<CommandResult> CommandHandler(
             Command command,
@@ -45,7 +43,10 @@ namespace Newsletterme.Features.Account
                 Email = command.Email
             };
 
-            var result = await userManager.CreateAsync(user, command.Password);
+            var result = await userManager.CreateAsync(
+                user,
+                command.Password
+            );
 
             return new(result);
         }

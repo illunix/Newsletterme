@@ -17,8 +17,7 @@ namespace Newsletterme.Features.Dashboard
 
         public record Dashboard(
             int TotalSubscriptionCount,
-            int TodaySubscriptionCount,
-            IReadOnlyList<Newsletter> Newsletters
+            int TodaySubscriptionCount
         );
 
         public record Newsletter(
@@ -29,42 +28,23 @@ namespace Newsletterme.Features.Dashboard
 
         public static async Task<Dashboard> QueryHandler(
             Query query,
-            ApplicationDbContext context,
-            UserManager<ApplicationUser> userManager
+            ApplicationDbContext context
         )
         {
-            var user = await userManager.FindByIdAsync(query.UserId);
-            if (user is null)
-            {
-                return null; 
-            }
-
             var totalSubscriptionCount = await context.NewsletterSubscriptions
-                .Where(q => q.Newsletter.UserId == user.Id)
+                .Where(q => q.Newsletter.UserId == query.UserId)
                 .CountAsync();
 
             var todaySubscriptionCount = await context.NewsletterSubscriptions
                 .Where(
-                    q => q.Newsletter.UserId == user.Id && 
+                    q => q.Newsletter.UserId == query.UserId && 
                     q.SubscribedAt == DateTime.Today
                 )
                 .CountAsync();
 
-            var newsletters = await context.Newsletters
-                .Where(q => q.UserId == user.Id)
-                .OrderByDescending(q => q.NewsletterSubscriptions.Count())
-                .Select(q => new Newsletter(
-                    q.Id,
-                    q.Name,
-                    q.NewsletterSubscriptions.Count()
-                 ))
-                .ToListAsync();
-
-
             return new(
                 totalSubscriptionCount,
-                todaySubscriptionCount,
-                newsletters
+                todaySubscriptionCount
             );
         }
     }

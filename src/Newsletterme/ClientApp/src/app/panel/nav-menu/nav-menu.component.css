@@ -11,3 +11,10 @@
   right: 1rem;
 }
 
+.btnSignOut {
+    color: red;
+}
+
+.dropdown-menu {
+    font-size: 14px;
+}

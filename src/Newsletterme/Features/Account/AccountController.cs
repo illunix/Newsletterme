@@ -36,7 +36,10 @@ namespace Newsletterme.Features.Account
             {
                 foreach (var error in commandResult.IdentityResult.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(
+                        string.Empty, 
+                        error.Description
+                    );
                 }
 
                 return BadRequest(ModelState);

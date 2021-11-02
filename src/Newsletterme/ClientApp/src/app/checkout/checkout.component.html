@@ -1,0 +1,56 @@
+<app-nav-menu></app-nav-menu>
+<div class="container">
+  <main>
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">Selected Plan</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0" *ngIf="proPlan">Pro</h6>
+              <small class="text-muted" *ngIf="proPlan">Maximum 10000 subscribers</small>
+
+              <h6 class="my-0" *ngIf="!proPlan">Enterprise</h6>
+              <small class="text-muted" *ngIf="!proPlan">Unlimited subscribers</small>
+            </div>
+            <span class="text-muted" *ngIf="proPlan">$15</span>
+            <span class="text-muted" *ngIf="!proPlan">$12</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <a class="link-primary" [routerLink]="['/plans']">Change Plan</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Billing address</h4>
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h4 class="mb-3">Pay with</h4>
+
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
