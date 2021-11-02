@@ -44,7 +44,7 @@ export class CheckoutComponent implements OnInit {
             }
           },
           items: [{
-            name: (this.proPlan ? 'Pro' : 'Enterprise') + 'Plan Subscription',
+            name: (this.proPlan ? 'Pro' : 'Enterprise') + ' Plan Subscription',
             quantity: '1',
             category: 'DIGITAL_GOODS',
             unit_amount: {
