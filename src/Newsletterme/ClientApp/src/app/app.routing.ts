@@ -8,6 +8,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { PlansComponent } from './plans/plans.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { UserSettingsComponent } from './user/settings/settings.component';
+import { UserProfileComponent } from './user/settings/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,14 @@ const routes: Routes = [
     path: 'newsletters',
     component: PanelComponent,
     children: [{ path: '', component: NewslettersComponent }],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings',
+    component: UserSettingsComponent,
+    children: [{
+      path: 'profile', component: UserProfileComponent
+    }],
     canActivate: [AuthGuard]
   }
 ];

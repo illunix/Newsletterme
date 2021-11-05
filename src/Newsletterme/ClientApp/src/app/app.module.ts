@@ -16,12 +16,15 @@ import { PanelNavMenuComponent } from './panel/nav-menu/nav-menu.component';
 import { PanelSideMenuModule } from './panel/side-menu/side-menu.module';
 import { NewslettersComponent } from './newsletters/newsletters.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddNewsletterComponent } from './newsletters/add/add.component';
-import { AuthGuard } from './_helpers/auth.guard';
+import { AddNewsletterModalComponent } from './newsletters/add/add.component';
 import { PlansComponent } from './plans/plans.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PanelNavMenuModule } from './panel/nav-menu/nav-menu.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { AddNewsletterModalModule } from './newsletters/add/add.module';
+import { UserProfileComponent } from './user/settings/profile/profile.component';
+import { UserSettingsNavComponent } from './user/settings/nav/nav.component';
+import { UserSettingsComponent } from './user/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +36,13 @@ import { CheckoutModule } from './checkout/checkout.module';
     PanelComponent,
     PanelSideMenuComponent,
     PanelNavMenuComponent,
-    AddNewsletterComponent,
+    NewslettersComponent,
+    AddNewsletterModalComponent,
     PlansComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    UserSettingsComponent,
+    UserSettingsNavComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,8 @@ import { CheckoutModule } from './checkout/checkout.module';
     NgbModule,
     PanelSideMenuModule,
     PanelNavMenuModule,
-    CheckoutModule
+    CheckoutModule,
+    AddNewsletterModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

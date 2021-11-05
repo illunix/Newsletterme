@@ -14,5 +14,9 @@ namespace Newsletterme.Features.Newsletters
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] Get.Query query)
             => Ok(await _mediator.Send(query));
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Post.Command command)
+            => Ok(await _mediator.Send(command));
     }
 }

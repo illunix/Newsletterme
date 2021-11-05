@@ -37,7 +37,7 @@ namespace Newsletterme.Features.Account
                 foreach (var error in commandResult.IdentityResult.Errors)
                 {
                     ModelState.AddModelError(
-                        string.Empty, 
+                        string.Empty,
                         error.Description
                     );
                 }
@@ -47,5 +47,10 @@ namespace Newsletterme.Features.Account
 
             return Ok();
         }
+
+        [HttpPost]
+        [ActionName("change-plan")]
+        public async Task<IActionResult> ChangePlan([FromBody] ChangePlan.Command command)
+            => Ok(await _mediator.Send(command));
     }
 }

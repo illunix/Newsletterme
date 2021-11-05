@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { UserService } from '../_services/user.service';
 
 @Component({
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+  private baseUrl: string;
   payPalConfig: IPayPalConfig;
   proPlan: boolean;
   name: '';
@@ -14,12 +17,22 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private router: Router,
+    private http: HttpClient,
+    private userService: UserService,
+    @Inject('BASE_URL') baseUrl: string,
+  ) {
+    this.baseUrl = baseUrl;
+  }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
+        if (params.plan !== 'pro' && params.plan !== 'enterprise') {
+          this.router.navigateByUrl('/plans');
+          return;
+        }
+
         if (params.plan === 'pro') {
           this.proPlan = true;
         }
@@ -60,6 +73,15 @@ export class CheckoutComponent implements OnInit {
       style: {
         label: 'paypal',
         layout: 'vertical'
+      },
+      onApprove: () => {
+        const data = {
+          userId: this.userService.getCurrentUserId(),
+          plan: this.proPlan ? 'pro' : 'enterprise'
+        }
+        this.http.post<any>(this.baseUrl + 'api/account/change-plan', data).subscribe(() => {
+          this.router.navigateByUrl('dashboard');
+        });
       }
     }
   }

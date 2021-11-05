@@ -40,7 +40,8 @@ namespace Newsletterme.Features.Account
             var user = new ApplicationUser
             {
                 UserName = command.Username,
-                Email = command.Email
+                Email = command.Email,
+                Plan =  ""
             };
 
             var result = await userManager.CreateAsync(

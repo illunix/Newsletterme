@@ -33,14 +33,19 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Migrations\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Migrations\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.routing.ts" />
     <None Remove="ClientApp\src\app\checkout\checkout.module.ts" />
+    <None Remove="ClientApp\src\app\newsletters\add\add.module.ts" />
     <None Remove="ClientApp\src\app\panel\nav-menu\nav-menu.component.ts" />
     <None Remove="ClientApp\src\app\panel\nav-menu\nav-menu.module.ts" />
     <None Remove="ClientApp\src\app\panel\side-menu\side-menu.component.ts" />
@@ -61,6 +66,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.routing.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\checkout\checkout.module.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\newsletters\add\add.module.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\panel\nav-menu\nav-menu.component.ts">
