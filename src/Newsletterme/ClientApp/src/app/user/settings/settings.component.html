@@ -1,13 +1,15 @@
-<app-nav-menu></app-nav-menu>
-<div class="container">
-  <main class="pb-3">
-    <div class="row">
-      <div class="col-md-3">
-        <user-settings-nav></user-settings-nav>
-      </div>
-      <div class="col-md-3">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </main>
-</div>
+<ul ngbNav #nav="ngbNav" class="nav-tabs">
+  <li ngbNavItem>
+    <a ngbNavLink>Profile</a>
+    <ng-template ngbNavContent>
+      <user-settings-profile></user-settings-profile>
+    </ng-template>
+  </li>
+  <li ngbNavItem>
+    <a ngbNavLink>Billing & plans</a>
+    <ng-template ngbNavContent>
+      <user-settings-billing></user-settings-billing>
+    </ng-template>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>

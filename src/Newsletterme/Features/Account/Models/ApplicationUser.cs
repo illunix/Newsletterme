@@ -5,5 +5,6 @@ namespace Newsletterme.Features.Account.Models
     public class ApplicationUser : IdentityUser
     {
         public string Plan { get; set; }
+        public string Description { get; set; }
     }
 }

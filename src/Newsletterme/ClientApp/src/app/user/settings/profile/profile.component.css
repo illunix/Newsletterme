@@ -1,0 +1,13 @@
+.form-control {
+  width: 30%;
+}
+
+label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input,
+editor {
+    margin-bottom: 15px;
+}

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,30 @@ namespace Newsletterme.Features.Account
     public partial class AccountController : Controller
     {
         private readonly IMediator _mediator;
+
+        [HttpGet]
+        [ActionName("")]
+        public async Task<IActionResult> Get([FromQuery] Get.Query query)
+            => Ok(await _mediator.Send(query));
+
+        [HttpPut]
+        [Authorize]
+        [ActionName("")]
+        public async Task<IActionResult> Put([FromBody] Put.Command command)
+        {
+            var commandResult = await _mediator.Send(command);
+            if (commandResult.alreadyExist)
+            {
+                ModelState.AddModelError(
+                    "name",
+                    "User with this name already exist."
+                );
+
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
+        }
 
         [HttpPost]
         [ActionName("sign-in")]
@@ -49,6 +74,7 @@ namespace Newsletterme.Features.Account
         }
 
         [HttpPost]
+        [Authorize]
         [ActionName("change-plan")]
         public async Task<IActionResult> ChangePlan([FromBody] ChangePlan.Command command)
             => Ok(await _mediator.Send(command));

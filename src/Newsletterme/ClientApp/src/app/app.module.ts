@@ -23,8 +23,10 @@ import { PanelNavMenuModule } from './panel/nav-menu/nav-menu.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { AddNewsletterModalModule } from './newsletters/add/add.module';
 import { UserProfileComponent } from './user/settings/profile/profile.component';
-import { UserSettingsNavComponent } from './user/settings/nav/nav.component';
+import { UserSettingsModule } from './user/settings/profile/profile.module';
 import { UserSettingsComponent } from './user/settings/settings.component';
+import { UserBillingComponent } from './user/settings/billing/billing.component';
+import { SubscribeNewsletterComponent } from './subscribe-newsletter/subscribe-newsletter.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,9 @@ import { UserSettingsComponent } from './user/settings/settings.component';
     PlansComponent,
     CheckoutComponent,
     UserSettingsComponent,
-    UserSettingsNavComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserBillingComponent,
+    SubscribeNewsletterComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { UserSettingsComponent } from './user/settings/settings.component';
     PanelSideMenuModule,
     PanelNavMenuModule,
     CheckoutModule,
-    AddNewsletterModalModule
+    AddNewsletterModalModule,
+    UserSettingsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

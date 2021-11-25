@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center align-items-center container">
+  <div class="row">
+    <div [innerHTML]="description"></div>
+
+    <form [formGroup]="subscribeForm" (ngSubmit)="onSubscribe()">
+      <div class="mb-3">
+        <label>Name</label>
+        <input class="form-control" formControlName="name">
+        <div class="text-danger" *ngIf="isSubmitted && f.name.errors?.required">Name is required.</div>
+      </div>
+      <div class="mb-3">
+        <label>Email</label>
+        <input class="form-control" formControlName="email">
+        <div class="text-danger" *ngIf="isSubmitted && f.email.errors?.required">Email is required.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </div>
+</div>

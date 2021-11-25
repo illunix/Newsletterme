@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './settings.component.html'
+  selector: 'user-settings-nav-menu',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
 })
-export class UserSettingsComponent { }
+export class UserSettingsComponent {
+  constructor(
+  ) { }
+}

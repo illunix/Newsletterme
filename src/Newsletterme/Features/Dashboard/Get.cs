@@ -31,6 +31,7 @@ namespace Newsletterme.Features.Dashboard
             ApplicationDbContext context
         )
         {
+            /*
             var totalSubscriptionCount = await context.NewsletterSubscriptions
                 .Where(q => q.Newsletter.UserId == query.UserId)
                 .CountAsync();
@@ -41,10 +42,11 @@ namespace Newsletterme.Features.Dashboard
                     q.SubscribedAt == DateTime.Today
                 )
                 .CountAsync();
+            */
 
             return new(
-                totalSubscriptionCount,
-                todaySubscriptionCount
+                0,
+                0
             );
         }
     }

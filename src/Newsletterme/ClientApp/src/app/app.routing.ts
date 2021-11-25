@@ -8,8 +8,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { PlansComponent } from './plans/plans.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { UserSettingsComponent } from './user/settings/settings.component';
 import { UserProfileComponent } from './user/settings/profile/profile.component';
+import { UserSettingsComponent } from './user/settings/settings.component';
+import { UserBillingComponent } from './user/settings/billing/billing.component';
+import { SubscribeNewsletterComponent } from './subscribe-newsletter/subscribe-newsletter.component';
 
 const routes: Routes = [
   {
@@ -43,12 +45,19 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: UserSettingsComponent,
-    children: [{
-      path: 'profile', component: UserProfileComponent
-    }],
+    component: PanelComponent,
+    children: [
+      {
+        path: '',
+        component: UserSettingsComponent
+      },
+    ],
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'subscribe/:username',
+    component: SubscribeNewsletterComponent
+  },
 ];
 
 export const RoutingModule = RouterModule.forRoot(routes);

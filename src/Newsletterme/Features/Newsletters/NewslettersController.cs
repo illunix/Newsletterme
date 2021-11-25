@@ -18,5 +18,9 @@ namespace Newsletterme.Features.Newsletters
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Post.Command command)
             => Ok(await _mediator.Send(command));
+
+        [HttpPost]
+        public async Task<IActionResult> Subscribe([FromBody] Subscribe.Command command)
+            => Ok(await _mediator.Send(command));
     }
 }

@@ -50,6 +50,7 @@
     <None Remove="ClientApp\src\app\panel\nav-menu\nav-menu.module.ts" />
     <None Remove="ClientApp\src\app\panel\side-menu\side-menu.component.ts" />
     <None Remove="ClientApp\src\app\panel\side-menu\side-menu.module.ts" />
+    <None Remove="ClientApp\src\app\user\settings\profile\profile.module.ts" />
     <None Remove="ClientApp\src\app\_helpers\auth.guard.ts" />
     <None Remove="ClientApp\src\app\_services\user.service.ts" />
   </ItemGroup>
@@ -83,6 +84,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\panel\side-menu\side-menu.module.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\user\settings\profile\profile.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_helpers\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\user.service.ts" />
   </ItemGroup>

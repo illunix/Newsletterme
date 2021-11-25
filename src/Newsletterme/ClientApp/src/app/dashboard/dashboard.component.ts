@@ -31,9 +31,6 @@ export class DashboardComponent implements OnInit {
       next: data => {
         this.totalSubscriptionCount = data.totalSubscriptionCount;
         this.todaySubscriptionCount = data.todaySubscriptionCount;
-
-        console.log(data.todaySubscriptionCount);
-        console.log(data);
       }
     });
   }
